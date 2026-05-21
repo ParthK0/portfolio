@@ -1,0 +1,98 @@
+/* ═══════════════════════════════════════════════════════════
+   ANIMATIONS.CSS — Keyframes, Reveal Classes, GSAP Targets
+═══════════════════════════════════════════════════════════ */
+
+/* ── Keyframes ── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.85); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(1); opacity: 0.6; }
+  50%       { transform: scaleY(1.4); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(29, 158, 117, 0.2); }
+  50%       { box-shadow: 0 0 25px rgba(29, 158, 117, 0.5), 0 0 50px rgba(29, 158, 117, 0.1); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ── Reveal Classes (initial hidden states, GSAP animates in) ── */
+.reveal-up,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transition: none; /* GSAP controls this */
+}
+
+/* Delay utilities for GSAP stagger overrides */
+.delay-1 { --reveal-delay: 0.1s; }
+.delay-2 { --reveal-delay: 0.2s; }
+.delay-3 { --reveal-delay: 0.3s; }
+.delay-4 { --reveal-delay: 0.4s; }
+.delay-5 { --reveal-delay: 0.5s; }
+
+/* ── When IntersectionObserver fires, GSAP adds .is-visible ── */
+.reveal-up.is-visible {
+  animation: fadeInUp var(--duration-slow) var(--ease-out) forwards;
+  animation-delay: var(--reveal-delay, 0s);
+}
+.reveal-left.is-visible {
+  animation: fadeInLeft var(--duration-slow) var(--ease-out) forwards;
+  animation-delay: var(--reveal-delay, 0s);
+}
+.reveal-right.is-visible {
+  animation: fadeInRight var(--duration-slow) var(--ease-out) forwards;
+  animation-delay: var(--reveal-delay, 0s);
+}
+
+/* ── Floating utility ── */
+.float-anim {
+  animation: floatY 4s ease-in-out infinite;
+}
+
+/* ── Glassmorphic surface ── */
+.glass {
+  background: rgba(20, 27, 46, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ── Glow text ── */
+.glow-text-teal   { text-shadow: 0 0 20px rgba(29, 158, 117, 0.6); }
+.glow-text-purple { text-shadow: 0 0 20px rgba(127, 119, 221, 0.6); }
+.glow-text-coral  { text-shadow: 0 0 20px rgba(212, 83, 126, 0.6); }
+.glow-text-amber  { text-shadow: 0 0 20px rgba(216, 90, 48, 0.6); }
+
+/* ── Section accent borders ── */
+.section-skills    .section-label { color: var(--clr-amber); }
+.section-leetcode  .section-label { color: var(--clr-purple); }
+.section-personal  .section-label { color: var(--clr-coral); }
+.section-experience .section-label { color: var(--clr-teal); }

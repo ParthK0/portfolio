@@ -1,0 +1,23 @@
+[
+  {
+    "id": "personal-1",
+    "label": "Football",
+    "note": "Weekend striker. Blame Zidane for the obsession.",
+    "object": "sphere",
+    "color": "#D4537E"
+  },
+  {
+    "id": "personal-2",
+    "label": "Photography",
+    "note": "Chasing golden hour light with a battered 50mm lens.",
+    "object": "camera",
+    "color": "#1D9E75"
+  },
+  {
+    "id": "personal-3",
+    "label": "Worldbuilding",
+    "note": "Five years of notes for one fictional ocean city. You're looking at it.",
+    "object": "octahedron",
+    "color": "#7F77DD"
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "exp-1",
+    "org": "Quanta",
+    "role": "Technical Lead",
+    "type": "Leadership",
+    "start": "Aug 2024",
+    "end": "Present",
+    "bullets": [
+      "Led a team of 12 engineers building internal developer tooling and open-source projects.",
+      "Designed and shipped the club's public-facing tech portal reaching 2,000+ monthly visitors.",
+      "Ran bi-weekly technical workshops on systems design and algorithmic problem-solving."
+    ]
+  },
+  {
+    "id": "exp-2",
+    "org": "Open Source",
+    "role": "Contributor",
+    "type": "Open Source",
+    "start": "Jan 2024",
+    "end": "Present",
+    "bullets": [
+      "Contributed GLSL shader optimisations to a Three.js-based data visualisation library.",
+      "Opened and merged PRs improving WebGL context handling across browsers.",
+      "Maintained documentation and wrote migration guides for breaking API changes."
+    ]
+  }
+]
