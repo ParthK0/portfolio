@@ -13,3 +13,9 @@ A modern, scroll-based developer portfolio built with Three.js, Vite, and GSAP.
 - Dynamic LeetCode stats integration via external API
 - Smooth scroll reveals and scroll-spy navigation
 
+
+## Running Locally
+1. Install dependencies: `pnpm install` 
+2. Start dev server: `pnpm run dev` 
+3. Build for production: `pnpm run build` 
+
