@@ -48,7 +48,7 @@ async function boot() {
   buildProjects(projects);
   buildSkills(skills);
   buildExperience(experience);
-  buildLeetcode(leetcode);
+  await buildLeetcode(leetcode);
   buildPersonal(personal);
   animateLeetBars();
 

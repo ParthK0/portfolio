@@ -121,10 +121,36 @@ export function buildExperience(experience) {
 }
 
 /* ── LeetCode ── */
-export function buildLeetcode(data) {
+export async function buildLeetcode(fallbackData) {
   const statsEl = document.getElementById('leet-stats');
   const catsEl  = document.getElementById('leet-categories');
   const linkEl  = document.getElementById('leet-profile-link');
+
+  let data = { ...fallbackData };
+  let calendarDataStr = "{}";
+
+  if (data.username) {
+    try {
+      const [solvedRes, calRes] = await Promise.all([
+        fetch(`https://alfa-leetcode-api.onrender.com/${data.username}/solved`).then(r => r.json()),
+        fetch(`https://alfa-leetcode-api.onrender.com/${data.username}/calendar`).then(r => r.json())
+      ]);
+      
+      if (!solvedRes.errors && !calRes.errors) {
+        data.total = solvedRes.solvedProblem || data.total;
+        data.easy = solvedRes.easySolved || data.easy;
+        data.medium = solvedRes.mediumSolved || data.medium;
+        data.hard = solvedRes.hardSolved || data.hard;
+        
+        data.streak = calRes.streak !== undefined ? calRes.streak : data.streak;
+        if (calRes.submissionCalendar) {
+          calendarDataStr = calRes.submissionCalendar;
+        }
+      }
+    } catch (err) {
+      console.warn("Failed to fetch live LeetCode stats, using fallback.", err);
+    }
+  }
 
   if (statsEl) {
     statsEl.innerHTML = `
@@ -148,24 +174,83 @@ export function buildLeetcode(data) {
   }
 
   if (catsEl) {
-    const maxCount = Math.max(...data.categories.map(c => c.count));
-    data.categories.forEach((cat, i) => {
-      const pct = (cat.count / maxCount * 100).toFixed(1);
-      const row = document.createElement('div');
-      row.className = 'leet-cat-row reveal-up';
-      row.id        = `leet-cat-${i}`;
-      row.innerHTML = `
-        <span class="leet-cat-name">${cat.name}</span>
-        <div class="leet-cat-bar-wrap">
-          <div class="leet-cat-bar" style="width:0%; background:${cat.color}" data-width="${pct}%"></div>
-        </div>
-        <span class="leet-cat-count">${cat.count}</span>
-      `;
-      catsEl.appendChild(row);
-    });
+    catsEl.innerHTML = '';
+    
+    if (data.categories && data.categories.length > 0) {
+      const maxCount = Math.max(...data.categories.map(c => c.count));
+      data.categories.forEach((cat, i) => {
+        const pct = (cat.count / maxCount * 100).toFixed(1);
+        const row = document.createElement('div');
+        row.className = 'leet-cat-row reveal-up';
+        row.id        = `leet-cat-${i}`;
+        row.innerHTML = `
+          <span class="leet-cat-name">${cat.name}</span>
+          <div class="leet-cat-bar-wrap">
+            <div class="leet-cat-bar" style="width:0%; background:${cat.color}" data-width="${pct}%"></div>
+          </div>
+          <span class="leet-cat-count">${cat.count}</span>
+        `;
+        catsEl.appendChild(row);
+      });
+    }
+
+    if (calendarDataStr !== "{}") {
+      renderSubmissionHeatmap(catsEl, calendarDataStr);
+    }
   }
 
   if (linkEl) linkEl.href = data.profile;
+}
+
+function renderSubmissionHeatmap(container, calendarStr) {
+  let cal = {};
+  try {
+    cal = JSON.parse(calendarStr);
+  } catch (e) {
+    return;
+  }
+
+  const dateCounts = {};
+  for (const [ts, count] of Object.entries(cal)) {
+    const d = new Date(parseInt(ts) * 1000);
+    const dateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    dateCounts[dateStr] = (dateCounts[dateStr] || 0) + count;
+  }
+  
+  const now = new Date();
+  const days = 140; // 20 weeks
+  const startDate = new Date(now.getTime() - (days * 24 * 60 * 60 * 1000));
+  startDate.setDate(startDate.getDate() - startDate.getDay()); // Align to Sunday
+  
+  now.setHours(23, 59, 59, 999);
+  const totalDays = Math.round((now.getTime() - startDate.getTime()) / (1000*60*60*24));
+  
+  const heatmapWrap = document.createElement('div');
+  heatmapWrap.className = 'leet-heatmap-wrap reveal-up';
+  
+  const heatmapGrid = document.createElement('div');
+  heatmapGrid.className = 'leet-heatmap';
+  
+  for (let i = 0; i < totalDays; i++) {
+    const date = new Date(startDate.getTime() + (i * 24 * 60 * 60 * 1000));
+    const dateStr = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+    const count = dateCounts[dateStr] || 0;
+    
+    const cell = document.createElement('div');
+    cell.className = 'heatmap-cell';
+    if (count === 0) cell.dataset.level = '0';
+    else if (count <= 1) cell.dataset.level = '1';
+    else if (count <= 3) cell.dataset.level = '2';
+    else if (count <= 5) cell.dataset.level = '3';
+    else cell.dataset.level = '4';
+    
+    cell.title = `${count} submissions on ${date.toDateString()}`;
+    heatmapGrid.appendChild(cell);
+  }
+  
+  heatmapWrap.innerHTML = `<div class="heatmap-title" style="margin-top: 3rem; margin-bottom: 1rem; font-size: 1.1rem; color: var(--text-200); font-family: var(--font-mono);">Submission Activity (Last ${days} Days)</div>`;
+  heatmapWrap.appendChild(heatmapGrid);
+  container.appendChild(heatmapWrap);
 }
 
 /* ── Personal ── */
