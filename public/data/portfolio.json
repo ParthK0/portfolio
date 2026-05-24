@@ -1,92 +1,187 @@
 {
   "hero": {
     "firstName": "Parth",
-    "lastName": "K",
-    "titles": ["Full-Stack Engineer.", "3D Web Developer.", "Worldbuilder.", "CS Student."],
-    "tagline": "Building things at the intersection of code, craft, and deep water.",
+    "lastName": "Khowal",
+    "titles": [
+      "AI & Data Science Undergraduate.",
+      "Full-Stack Developer.",
+      "ML Enthusiast."
+    ],
+    "tagline": "Building intelligent systems, one commit at a time",
     "resumeUrl": "#",
+    "location": "Greater Noida, Uttar Pradesh",
+    "phone": "+91 8079086274",
     "social": {
       "github": "https://github.com/ParthK0",
-      "linkedin": "https://linkedin.com/in/ParthK0",
-      "email": "parth@example.com"
+      "linkedin": "https://linkedin.com/in/parth-khowal-a37903294",
+      "email": "parthkhowal222@gmail.com"
     }
   },
   "about": {
     "bio": [
-      "I'm a computer science student obsessed with the boundary between engineering and art. I build tools that feel alive — trading platforms, civic tech, and right now, an underwater 3D world called Atlantis.",
-      "When I'm not writing code I'm designing the lore for that world, playing football, or hunting golden-hour light with a battered camera lens. I believe software should make people feel something."
+      "AI & Data Science undergrad at Galgotias University with hands-on experience in full-stack development and machine learning. Currently interning as a Full-Stack Developer at MSKard Business Solutions. Passionate about building AI-driven applications and transitioning into ML/AI engineering roles.",
+      ""
     ],
-    "currently": "Currently open to internships."
+    "currently": "Interning at MSKard · Treasurer at IEEE CIS · Building portfolio"
   },
   "education": {
-    "college": "Computer Science • B.Tech",
-    "year": "Expected Graduation: 2027",
-    "gpa": "3.8/4.0"
+    "university": "Galgotias University",
+    "degree": "B.Tech AI & Data Science",
+    "year": "2024–2028",
+    "gpa": "CGPA 8.89",
+    "coursework": [
+      "DSA",
+      "Computer Vision",
+      "DBMS",
+      "OOP",
+      "Probability & Statistics",
+      "OS",
+      "Linear Algebra"
+    ]
   },
   "skills": {
-    "primary": [
-      { "name": "JavaScript", "icon": "⚡" },
-      { "name": "React", "icon": "⚛️" },
-      { "name": "Three.js", "icon": "🧊" }
-    ],
-    "secondary": [
-      { "name": "Python", "icon": "🐍" },
-      { "name": "Node.js", "icon": "🟢" },
-      { "name": "SQL", "icon": "🗄️" }
-    ]
+    "languages": {
+      "label": "Languages",
+      "items": [
+        { "name": "C", "icon": "🔵" },
+        { "name": "Java", "icon": "☕" },
+        { "name": "Python", "icon": "🐍" },
+        { "name": "JavaScript", "icon": "⚡" },
+        { "name": "TypeScript", "icon": "🔷" },
+        { "name": "C++", "icon": "👾" }
+      ]
+    },
+    "frontend": {
+      "label": "Frontend",
+      "items": [
+        { "name": "HTML5", "icon": "🌐" },
+        { "name": "CSS3", "icon": "🎨" },
+        { "name": "React", "icon": "⚛️" },
+        { "name": "React Native", "icon": "📱" },
+        { "name": "Next.js", "icon": "▲" },
+        { "name": "Tailwind CSS", "icon": "🌊" }
+      ]
+    },
+    "backend": {
+      "label": "Backend",
+      "items": [
+        { "name": "Node.js", "icon": "🟢" },
+        { "name": "Express.js", "icon": "🚂" },
+        { "name": "FastAPI", "icon": "⚡" },
+        { "name": "Prisma", "icon": "◮" },
+        { "name": "React Query", "icon": "🔄" },
+        { "name": "JavaFX", "icon": "☕" }
+      ]
+    },
+    "databases": {
+      "label": "Databases & Cloud",
+      "items": [
+        { "name": "PostgreSQL", "icon": "🐘" },
+        { "name": "MySQL", "icon": "🐬" },
+        { "name": "MongoDB", "icon": "🍃" },
+        { "name": "Firebase", "icon": "🔥" },
+        { "name": "Redis", "icon": "🟥" },
+        { "name": "Google Cloud", "icon": "☁️" },
+        { "name": "Azure", "icon": "🔷" }
+      ]
+    },
+    "ai_ds": {
+      "label": "AI & Data Science",
+      "items": [
+        { "name": "NumPy", "icon": "🔢" },
+        { "name": "Pandas", "icon": "🐼" },
+        { "name": "Scikit-learn", "icon": "🤖" },
+        { "name": "OpenCV", "icon": "👁️" },
+        { "name": "FaceNet", "icon": "👤" },
+        { "name": "Gemini API", "icon": "♊" },
+        { "name": "Claude AI", "icon": "🧠" },
+        { "name": "Firecrawl", "icon": "🕷️" }
+      ]
+    },
+    "core_cs": {
+      "label": "Core CS",
+      "items": [
+        { "name": "DSA", "icon": "🌳" },
+        { "name": "OOP", "icon": "🧱" },
+        { "name": "DBMS", "icon": "🗄️" }
+      ]
+    },
+    "tools": {
+      "label": "Tools",
+      "items": [
+        { "name": "Git", "icon": "🌱" },
+        { "name": "GitHub", "icon": "🐙" },
+        { "name": "VS Code", "icon": "💻" },
+        { "name": "Maven", "icon": "📦" },
+        { "name": "PowerShell", "icon": "🐚" },
+        { "name": "Adobe", "icon": "🖌️" },
+        { "name": "Canva", "icon": "🖼️" }
+      ]
+    }
   },
   "projects": [
     {
-      "id": "atlantis",
-      "title": "Atlantis 3D",
-      "description": "An immersive underwater 3D world built with Three.js.",
-      "stack": ["Three.js", "WebGL", "React"],
-      "github": "https://github.com/ParthK0",
+      "id": "electiq",
+      "title": "ElectIQ",
+      "description": "AI civic education platform spanning 6 countries, utilizing Gemini AI and achieving 98% accessibility compliance.",
+      "stack": ["React 19", "Vite", "Firebase", "Gemini API", "Tailwind CSS 4", "GitHub Actions"],
+      "github": "https://github.com/ParthK0/election",
       "live": "#",
       "featured": true,
       "coral": "branching"
     },
     {
-      "id": "trading-bot",
-      "title": "AlphaForge",
-      "description": "Algorithmic trading platform for retail investors.",
-      "stack": ["Python", "Pandas", "PostgreSQL"],
-      "github": "https://github.com/ParthK0",
+      "id": "quantcraft",
+      "title": "QuantCraft",
+      "description": "Minecraft-themed hackathon platform featuring pixel-art UI styling and interactive 3D animations.",
+      "stack": ["Next.js", "React", "TypeScript", "Tailwind CSS", "CSS Modules"],
+      "github": "https://github.com/ParthK0/Quantacraft",
       "live": "#",
       "featured": false,
-      "coral": "fan"
+      "coral": "tube"
+    },
+    {
+      "id": "face-recognition",
+      "title": "Facial Recognition Attendance",
+      "description": "FaceNet + OpenCV + MySQL desktop application built with Java Swing for automated attendance logging.",
+      "stack": ["Java", "OpenCV", "FaceNet", "LBPH", "MySQL", "Maven", "Swing"],
+      "github": "https://github.com/ParthK0/FaceRecognitionJavaFX",
+      "live": "#",
+      "featured": false,
+      "coral": "brain"
     }
   ],
   "experience": [
     {
-      "id": "internship-1",
+      "id": "exp-mskard",
       "start": "May 2025",
       "end": "Present",
       "type": "Internship",
-      "org": "Tech Startup Inc.",
-      "role": "Frontend Developer Intern",
+      "org": "MSKard Business Solutions",
+      "role": "Full-Stack Developer Intern",
       "bullets": [
-        "Built responsive dashboards using React.",
-        "Improved rendering performance by 20%."
+        "Building e-commerce platform.",
+        "Developing frontend and backend integrations using Next.js, Node.js, PostgreSQL, React, Tailwind, and TypeScript."
       ]
     },
     {
-      "id": "club-1",
-      "start": "Aug 2024",
-      "end": "May 2025",
-      "type": "Club",
-      "org": "University CS Society",
-      "role": "Technical Lead",
+      "id": "exp-ieee",
+      "start": "2024",
+      "end": "Present",
+      "type": "Leadership",
+      "org": "IEEE Computational Intelligence Society (CIS)",
+      "role": "Treasurer",
       "bullets": [
-        "Organized workshops on WebGL and Three.js.",
-        "Mentored 50+ students in web development."
+        "Salesforce Agentic AI Workshop coordination.",
+        "ICCCA International Conference operations management.",
+        "Event planning & speaker coordination."
       ]
     }
   ],
   "dsa": {
     "leetcode": {
-      "username": "ParthK",
-      "profile": "https://leetcode.com/ParthK",
+      "username": "ParthK0",
+      "profile": "https://leetcode.com/ParthK0",
       "total": 350,
       "easy": 150,
       "medium": 150,
@@ -107,16 +202,22 @@
   },
   "workingOn": [
     {
-      "id": "curr-1",
-      "title": "Atlantis Rendering Engine",
-      "type": "Personal Project",
-      "description": "Optimizing WebGL draw calls for the upcoming Atlantis release."
+      "id": "curr-mskard",
+      "title": "Full-Stack Development at MSKard",
+      "type": "Internship",
+      "description": "Building a premium e-commerce platform using Next.js, Node.js, PostgreSQL, and TypeScript."
     },
     {
-      "id": "curr-2",
-      "title": "CS Society Webmaster",
-      "type": "Club Role",
-      "description": "Managing the main portal and building a new event registration system."
+      "id": "curr-ieee",
+      "title": "IEEE CIS Treasurer",
+      "type": "Leadership",
+      "description": "Planning Salesforce Agentic AI Workshop, coordinating ICCCA International Conference, and speaker logistics."
+    },
+    {
+      "id": "curr-portfolio",
+      "title": "Personal Portfolio & Atlantis Teaser",
+      "type": "Personal Project",
+      "description": "Developing a high-performance WebGL scroll-based experience introducing the Atlantis 3D world."
     }
   ],
   "traits": [
@@ -136,8 +237,8 @@
     }
   ],
   "footer": {
-    "closingLine": "Currently looking for internship opportunities — let's talk.",
+    "closingLine": "Always building, always learning.",
     "year": 2026,
-    "creator": "Parth K"
+    "creator": "Parth Khowal"
   }
 }

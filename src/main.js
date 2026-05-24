@@ -44,7 +44,7 @@ async function boot() {
 
   /* ── Build DOM from data ── */
   buildHero(portfolioData.hero);
-  buildAbout(portfolioData.about, portfolioData.education);
+  buildAbout(portfolioData.about, portfolioData.education, portfolioData.hero);
   buildProjects(portfolioData.projects);
   buildSkills(portfolioData.skills);
   buildExperience(portfolioData.experience);

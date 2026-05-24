@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parth K — Developer Portfolio</title>
-  <meta name="description" content="Developer portfolio of Parth K — a preview of the Atlantis 3D world coming 2027. Projects, skills, LeetCode, and more." />
-  <meta property="og:title" content="Parth K — Developer Portfolio" />
+  <title>Parth Khowal — Developer Portfolio</title>
+  <meta name="description" content="Developer portfolio of Parth Khowal — a preview of the Atlantis 3D world coming 2027. Projects, skills, LeetCode, and more." />
+  <meta property="og:title" content="Parth Khowal — Developer Portfolio" />
   <meta property="og:description" content="A teaser of the Atlantis 3D world. Scroll through the underwater city of code." />
   <meta property="og:type" content="website" />
 
@@ -76,7 +76,10 @@
         </p>
         <div class="hero-ctas reveal-up delay-4">
           <a href="#projects" class="btn btn-primary" id="cta-explore">Explore my work</a>
-
+          <a href="#" download class="btn btn-ghost" id="cta-resume">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Download Resume
+          </a>
         </div>
       </div>
       <div class="scroll-hint" id="scroll-hint" aria-label="Scroll down">
@@ -105,20 +108,35 @@
           <div class="about-text reveal-right delay-1">
             <h2 class="section-heading">Who I am</h2>
             <p class="about-bio" id="about-bio">
-              I'm a computer science student obsessed with the boundary between engineering and art. 
-              I build tools that feel alive — trading platforms, civic tech, and right now, 
-              an underwater 3D world called Atlantis.
+              AI & Data Science undergrad at Galgotias University with hands-on experience in full-stack development and machine learning.
             </p>
             <p class="about-bio" id="about-bio-2">
-              When I'm not writing code I'm designing the lore for that world, 
-              playing football, or hunting golden-hour light with a battered camera lens.
-              I believe software should make people feel something.
+              Currently interning as a Full-Stack Developer at MSKard Business Solutions. Passionate about building AI-driven applications and transitioning into ML/AI engineering roles.
             </p>
-            <div class="about-edu-badge reveal-up delay-2" id="about-edu-badge">
-              <span class="edu-icon">🎓</span>
-              <div class="edu-text">
-                <span class="edu-name" id="edu-college">Computer Science • B.Tech</span>
-                <span class="edu-year" id="edu-year">Expected Graduation: 2027</span>
+            
+            <div class="about-contact reveal-up delay-2" style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: var(--sp-5); font-size: 0.9rem; color: var(--clr-text-body);">
+              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="color: var(--clr-teal); font-size: 1.1rem; line-height: 1;">📍</span> <span id="about-location">Greater Noida, Uttar Pradesh</span></div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="color: var(--clr-teal); font-size: 1.1rem; line-height: 1;">📞</span> <span id="about-phone">8079086274</span></div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="color: var(--clr-teal); font-size: 1.1rem; line-height: 1;">✉️</span> <span id="about-email-text">parthkhowal222@gmail.com</span></div>
+            </div>
+
+            <div class="about-edu-card reveal-up delay-2" id="about-edu-card" style="display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); background: var(--clr-surface-2); border: 1px solid var(--clr-surface-3); border-radius: var(--radius-md); margin-top: var(--sp-5); margin-bottom: var(--sp-5);">
+              <div style="display: flex; align-items: flex-start; gap: var(--sp-4);">
+                <span class="edu-icon" style="font-size: 1.5rem; margin-top: 2px;">🎓</span>
+                <div class="edu-text" style="display: flex; flex-direction: column; gap: 4px; flex: 1;">
+                  <span class="edu-university" id="edu-university" style="font-weight: 700; color: var(--clr-text-heading); font-size: 1rem;">Galgotias University</span>
+                  <span class="edu-degree" id="edu-degree" style="font-weight: 600; color: var(--clr-teal); font-size: 0.9rem;">B.Tech AI & Data Science</span>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--clr-text-muted); font-family: var(--font-mono); margin-top: 2px;">
+                    <span id="edu-year">2024–2028</span>
+                    <span id="edu-gpa">CGPA 8.89</span>
+                  </div>
+                </div>
+              </div>
+              <div class="edu-coursework" id="edu-coursework" style="border-top: 1px solid var(--clr-surface-3); padding-top: var(--sp-3);">
+                <div style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--clr-text-muted); margin-bottom: 6px; font-family: var(--font-mono);">Key Coursework</div>
+                <div class="coursework-pills" id="coursework-pills" style="display: flex; flex-wrap: wrap; gap: 6px;">
+                  <!-- dynamically populated -->
+                </div>
               </div>
             </div>
             <div class="about-links reveal-up delay-3" id="about-links">

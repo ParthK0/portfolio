@@ -65,27 +65,26 @@ export function buildSkills(skills) {
   const container = document.getElementById('skills-groups');
   if (!container) return;
 
-  const groups = [
-    { key: 'primary',   label: 'Daily drivers',   data: skills.primary   },
-    { key: 'secondary', label: 'Also comfortable', data: skills.secondary },
-  ];
+  container.innerHTML = ''; // Clear existing layout
+  let skillIdx = 0; // Global index to map to 3D crystals
 
-  groups.forEach(({ key, label, data }) => {
+  Object.entries(skills).forEach(([key, category]) => {
     const div = document.createElement('div');
     div.className = 'skills-group reveal-up';
-    div.innerHTML = `<div class="skills-group-label">${label}</div>
+    div.innerHTML = `<div class="skills-group-label">${category.label}</div>
       <div class="skills-pills" id="skills-pills-${key}"></div>`;
     container.appendChild(div);
 
     const pillsWrap = div.querySelector(`#skills-pills-${key}`);
-    data.forEach((skill, i) => {
+    category.items.forEach((skill) => {
       const pill = document.createElement('button');
       pill.className = `skill-pill`;
-      pill.id        = `skill-pill-${key}-${i}`;
+      pill.id        = `skill-pill-${key}-${skillIdx}`;
       pill.innerHTML = `<span class="skill-pill-icon">${skill.icon}</span>${skill.name}`;
-      pill.dataset.index = i;
+      pill.dataset.index = skillIdx;
       pill.dataset.group = key;
       pillsWrap.appendChild(pill);
+      skillIdx++;
     });
   });
 }
@@ -95,30 +94,74 @@ export function buildHero(hero) {
   const nameFirst = document.querySelector('.hero-name-first');
   const nameLast  = document.querySelector('.hero-name-last');
   const tagline   = document.querySelector('.hero-tagline');
+  const resumeBtn = document.getElementById('cta-resume');
   
   if (nameFirst && hero.firstName) nameFirst.textContent = hero.firstName;
   if (nameLast && hero.lastName) nameLast.textContent = hero.lastName;
   if (tagline && hero.tagline) tagline.textContent = hero.tagline;
+  if (resumeBtn && hero.resumeUrl) resumeBtn.href = hero.resumeUrl;
 
   // We expose titles to the window so main.js can use it for typing animation
   if (hero.titles) {
     window.__heroTitles = hero.titles;
   }
+
+  // Set social links dynamically in about links and footer links
+  if (hero.social) {
+    const linkGithub = document.getElementById('link-github');
+    const linkLinkedin = document.getElementById('link-linkedin');
+    const linkEmail = document.getElementById('link-email');
+    
+    const footerGithub = document.getElementById('footer-github');
+    const footerLinkedin = document.getElementById('footer-linkedin');
+    const footerEmail = document.getElementById('footer-email');
+
+    if (linkGithub && hero.social.github) linkGithub.href = hero.social.github;
+    if (linkLinkedin && hero.social.linkedin) linkLinkedin.href = hero.social.linkedin;
+    if (linkEmail && hero.social.email) linkEmail.href = `mailto:${hero.social.email}`;
+
+    if (footerGithub && hero.social.github) footerGithub.href = hero.social.github;
+    if (footerLinkedin && hero.social.linkedin) footerLinkedin.href = hero.social.linkedin;
+    if (footerEmail && hero.social.email) {
+      footerEmail.href = `mailto:${hero.social.email}`;
+      footerEmail.textContent = hero.social.email;
+    }
+  }
 }
 
 /* ── About ── */
-export function buildAbout(about, education) {
+export function buildAbout(about, education, hero) {
   const bio1 = document.getElementById('about-bio');
   const bio2 = document.getElementById('about-bio-2');
   const badge = document.getElementById('about-status-badge');
-  const college = document.getElementById('edu-college');
+  const university = document.getElementById('edu-university');
+  const degree = document.getElementById('edu-degree');
   const year = document.getElementById('edu-year');
+  const gpa = document.getElementById('edu-gpa');
+  const courseworkPills = document.getElementById('coursework-pills');
 
-  if (bio1 && about.bio && about.bio[0]) bio1.textContent = about.bio[0];
-  if (bio2 && about.bio && about.bio[1]) bio2.textContent = about.bio[1];
+  const locEl = document.getElementById('about-location');
+  const phoneEl = document.getElementById('about-phone');
+  const emailTextEl = document.getElementById('about-email-text');
+
+  if (bio1) bio1.textContent = (about.bio && about.bio[0]) ? about.bio[0] : "";
+  if (bio2) bio2.textContent = (about.bio && about.bio[1]) ? about.bio[1] : "";
   if (badge && about.currently) badge.innerHTML = `<span class="status-dot"></span>${about.currently}`;
-  if (college && education.college) college.textContent = education.college;
+  
+  if (university && education.university) university.textContent = education.university;
+  if (degree && education.degree) degree.textContent = education.degree;
   if (year && education.year) year.textContent = education.year;
+  if (gpa && education.gpa) gpa.textContent = education.gpa;
+
+  if (courseworkPills && education.coursework) {
+    courseworkPills.innerHTML = education.coursework
+      .map(course => `<span style="font-size: 0.75rem; padding: 2px 8px; background: rgba(29, 158, 117, 0.06); color: var(--clr-teal); border: 1px solid rgba(29, 158, 117, 0.15); border-radius: var(--radius-sm); font-weight: 500;">${course}</span>`)
+      .join('');
+  }
+
+  if (locEl && hero && hero.location) locEl.textContent = hero.location;
+  if (phoneEl && hero && hero.phone) phoneEl.textContent = hero.phone;
+  if (emailTextEl && hero && hero.social && hero.social.email) emailTextEl.textContent = hero.social.email;
 }
 
 /* ── Experience ── */
@@ -375,9 +418,11 @@ export function buildFooter(footer) {
   const yearEl = document.getElementById('footer-year');
   const creatorEl = document.querySelector('.footer-copy');
   const taglineEl = document.querySelector('.footer-tagline');
+  const nameEl = document.querySelector('.footer-name');
 
   if (yearEl && footer.year) yearEl.textContent = footer.year;
   if (taglineEl && footer.closingLine) taglineEl.textContent = footer.closingLine;
+  if (nameEl && footer.creator) nameEl.textContent = footer.creator;
   
   if (creatorEl && footer.creator) {
     creatorEl.innerHTML = `© <span id="footer-year">${footer.year}</span> ${footer.creator}. Built as a teaser for Atlantis.`;

@@ -82,10 +82,11 @@ export function createSkillsScene() {
 
   /* ── Public method: highlight a crystal by index ── */
   function highlightCrystal(idx) {
+    const targetIdx = idx % crystals.length;
     crystals.forEach((c, i) => {
-      c.material.emissiveIntensity = i === idx ? 2.0 : 0.5;
+      c.material.emissiveIntensity = i === targetIdx ? 2.0 : 0.5;
       c.material.emissive = new THREE.Color(
-        i === idx ? 0xFFAA44 : emissiveColor
+        i === targetIdx ? 0xFFAA44 : emissiveColor
       );
     });
   }
