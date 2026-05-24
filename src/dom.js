@@ -90,6 +90,37 @@ export function buildSkills(skills) {
   });
 }
 
+/* ── Hero ── */
+export function buildHero(hero) {
+  const nameFirst = document.querySelector('.hero-name-first');
+  const nameLast  = document.querySelector('.hero-name-last');
+  const tagline   = document.querySelector('.hero-tagline');
+  
+  if (nameFirst && hero.firstName) nameFirst.textContent = hero.firstName;
+  if (nameLast && hero.lastName) nameLast.textContent = hero.lastName;
+  if (tagline && hero.tagline) tagline.textContent = hero.tagline;
+
+  // We expose titles to the window so main.js can use it for typing animation
+  if (hero.titles) {
+    window.__heroTitles = hero.titles;
+  }
+}
+
+/* ── About ── */
+export function buildAbout(about, education) {
+  const bio1 = document.getElementById('about-bio');
+  const bio2 = document.getElementById('about-bio-2');
+  const badge = document.getElementById('about-status-badge');
+  const college = document.getElementById('edu-college');
+  const year = document.getElementById('edu-year');
+
+  if (bio1 && about.bio && about.bio[0]) bio1.textContent = about.bio[0];
+  if (bio2 && about.bio && about.bio[1]) bio2.textContent = about.bio[1];
+  if (badge && about.currently) badge.innerHTML = `<span class="status-dot"></span>${about.currently}`;
+  if (college && education.college) college.textContent = education.college;
+  if (year && education.year) year.textContent = education.year;
+}
+
 /* ── Experience ── */
 export function buildExperience(experience) {
   const timeline = document.getElementById('experience-timeline');
@@ -120,13 +151,15 @@ export function buildExperience(experience) {
   });
 }
 
-/* ── LeetCode ── */
-export async function buildLeetcode(fallbackData) {
+/* ── DSA / CP (LeetCode + Codeforces) ── */
+export async function buildDSA(dsaData) {
   const statsEl = document.getElementById('leet-stats');
   const catsEl  = document.getElementById('leet-categories');
   const linkEl  = document.getElementById('leet-profile-link');
+  
+  const cfEl = document.getElementById('cf-stats'); // Codeforces container if we add it
 
-  let data = { ...fallbackData };
+  let data = { ...(dsaData.leetcode || {}) };
   let calendarDataStr = "{}";
 
   if (data.username) {
@@ -199,7 +232,34 @@ export async function buildLeetcode(fallbackData) {
     }
   }
 
-  if (linkEl) linkEl.href = data.profile;
+  if (linkEl && data.profile) linkEl.href = data.profile;
+
+  if (cfEl && dsaData.codeforces) {
+    const cf = dsaData.codeforces;
+    cfEl.innerHTML = `
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: var(--text-200);">Handle</span>
+          <span style="font-weight: 600; color: #fff;">${cf.handle}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: var(--text-200);">Rating</span>
+          <span style="font-weight: 600; color: #3182ce;">${cf.rating}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: var(--text-200);">Max Rating</span>
+          <span style="font-weight: 600; color: #4299e1;">${cf.maxRating}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: var(--text-200);">Rank</span>
+          <span style="font-weight: 600; color: #63b3ed;">${cf.rank}</span>
+        </div>
+        <a href="${cf.profile}" target="_blank" rel="noopener" class="btn btn-ghost leet-link reveal-up" style="margin-top: 1rem; border-color: rgba(49, 130, 206, 0.5); color: #63b3ed;">
+          View Codeforces profile →
+        </a>
+      </div>
+    `;
+  }
 }
 
 function renderSubmissionHeatmap(container, calendarStr) {
@@ -253,8 +313,25 @@ function renderSubmissionHeatmap(container, calendarStr) {
   container.appendChild(heatmapWrap);
 }
 
-/* ── Personal ── */
-export function buildPersonal(items) {
+/* ── Working On ── */
+export function buildWorkingOn(items) {
+  const container = document.getElementById('working-on-items');
+  if (!container || !items) return;
+
+  items.forEach((item) => {
+    const card = document.createElement('div');
+    card.className = 'working-on-card reveal-up';
+    card.innerHTML = `
+      <div class="working-on-type">${item.type}</div>
+      <h3 class="working-on-title">${item.title}</h3>
+      <p class="working-on-desc">${item.description}</p>
+    `;
+    container.appendChild(card);
+  });
+}
+
+/* ── Traits ── */
+export function buildTraits(items) {
   const container = document.getElementById('personal-items');
   if (!container) return;
 
@@ -291,6 +368,20 @@ export function buildPersonal(items) {
     }, { threshold: 0.1 });
     obs.observe(card);
   });
+}
+
+/* ── Footer ── */
+export function buildFooter(footer) {
+  const yearEl = document.getElementById('footer-year');
+  const creatorEl = document.querySelector('.footer-copy');
+  const taglineEl = document.querySelector('.footer-tagline');
+
+  if (yearEl && footer.year) yearEl.textContent = footer.year;
+  if (taglineEl && footer.closingLine) taglineEl.textContent = footer.closingLine;
+  
+  if (creatorEl && footer.creator) {
+    creatorEl.innerHTML = `© <span id="footer-year">${footer.year}</span> ${footer.creator}. Built as a teaser for Atlantis.`;
+  }
 }
 
 /* ── Animate LeetCode bars on scroll ── */

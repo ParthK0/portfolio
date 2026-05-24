@@ -1,0 +1,143 @@
+{
+  "hero": {
+    "firstName": "Parth",
+    "lastName": "K",
+    "titles": ["Full-Stack Engineer.", "3D Web Developer.", "Worldbuilder.", "CS Student."],
+    "tagline": "Building things at the intersection of code, craft, and deep water.",
+    "resumeUrl": "#",
+    "social": {
+      "github": "https://github.com/ParthK0",
+      "linkedin": "https://linkedin.com/in/ParthK0",
+      "email": "parth@example.com"
+    }
+  },
+  "about": {
+    "bio": [
+      "I'm a computer science student obsessed with the boundary between engineering and art. I build tools that feel alive — trading platforms, civic tech, and right now, an underwater 3D world called Atlantis.",
+      "When I'm not writing code I'm designing the lore for that world, playing football, or hunting golden-hour light with a battered camera lens. I believe software should make people feel something."
+    ],
+    "currently": "Currently open to internships."
+  },
+  "education": {
+    "college": "Computer Science • B.Tech",
+    "year": "Expected Graduation: 2027",
+    "gpa": "3.8/4.0"
+  },
+  "skills": {
+    "primary": [
+      { "name": "JavaScript", "icon": "⚡" },
+      { "name": "React", "icon": "⚛️" },
+      { "name": "Three.js", "icon": "🧊" }
+    ],
+    "secondary": [
+      { "name": "Python", "icon": "🐍" },
+      { "name": "Node.js", "icon": "🟢" },
+      { "name": "SQL", "icon": "🗄️" }
+    ]
+  },
+  "projects": [
+    {
+      "id": "atlantis",
+      "title": "Atlantis 3D",
+      "description": "An immersive underwater 3D world built with Three.js.",
+      "stack": ["Three.js", "WebGL", "React"],
+      "github": "https://github.com/ParthK0",
+      "live": "#",
+      "featured": true,
+      "coral": "branching"
+    },
+    {
+      "id": "trading-bot",
+      "title": "AlphaForge",
+      "description": "Algorithmic trading platform for retail investors.",
+      "stack": ["Python", "Pandas", "PostgreSQL"],
+      "github": "https://github.com/ParthK0",
+      "live": "#",
+      "featured": false,
+      "coral": "fan"
+    }
+  ],
+  "experience": [
+    {
+      "id": "internship-1",
+      "start": "May 2025",
+      "end": "Present",
+      "type": "Internship",
+      "org": "Tech Startup Inc.",
+      "role": "Frontend Developer Intern",
+      "bullets": [
+        "Built responsive dashboards using React.",
+        "Improved rendering performance by 20%."
+      ]
+    },
+    {
+      "id": "club-1",
+      "start": "Aug 2024",
+      "end": "May 2025",
+      "type": "Club",
+      "org": "University CS Society",
+      "role": "Technical Lead",
+      "bullets": [
+        "Organized workshops on WebGL and Three.js.",
+        "Mentored 50+ students in web development."
+      ]
+    }
+  ],
+  "dsa": {
+    "leetcode": {
+      "username": "ParthK",
+      "profile": "https://leetcode.com/ParthK",
+      "total": 350,
+      "easy": 150,
+      "medium": 150,
+      "hard": 50,
+      "streak": 14,
+      "categories": [
+        { "name": "Arrays", "count": 120, "color": "#4caf50" },
+        { "name": "DP", "count": 60, "color": "#2196f3" }
+      ]
+    },
+    "codeforces": {
+      "handle": "ParthK0",
+      "profile": "https://codeforces.com/profile/ParthK0",
+      "rating": 1450,
+      "maxRating": 1500,
+      "rank": "Specialist"
+    }
+  },
+  "workingOn": [
+    {
+      "id": "curr-1",
+      "title": "Atlantis Rendering Engine",
+      "type": "Personal Project",
+      "description": "Optimizing WebGL draw calls for the upcoming Atlantis release."
+    },
+    {
+      "id": "curr-2",
+      "title": "CS Society Webmaster",
+      "type": "Club Role",
+      "description": "Managing the main portal and building a new event registration system."
+    }
+  ],
+  "traits": [
+    {
+      "id": "trait-1",
+      "label": "Coffee Addict",
+      "note": "Can't code without my morning espresso.",
+      "object": "mug",
+      "color": "#6f4e37"
+    },
+    {
+      "id": "trait-2",
+      "label": "Photographer",
+      "note": "Hunting golden-hour light with a battered camera lens.",
+      "object": "camera",
+      "color": "#9e9e9e"
+    }
+  ],
+  "footer": {
+    "closingLine": "Currently looking for internship opportunities — let's talk.",
+    "year": 2026,
+    "creator": "Parth K"
+  }
+}

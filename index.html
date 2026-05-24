@@ -36,8 +36,9 @@
       <li><a href="#projects" class="nav-link" id="nav-projects">Projects</a></li>
       <li><a href="#skills" class="nav-link" id="nav-skills">Skills</a></li>
       <li><a href="#experience" class="nav-link" id="nav-experience">Experience</a></li>
-      <li><a href="#leetcode" class="nav-link" id="nav-leetcode">LeetCode</a></li>
-      <li><a href="#personal" class="nav-link" id="nav-personal">Personal</a></li>
+      <li><a href="#dsa" class="nav-link" id="nav-dsa">DSA</a></li>
+      <li><a href="#working-on" class="nav-link" id="nav-working-on">Working On</a></li>
+      <li><a href="#personal" class="nav-link" id="nav-personal">Traits</a></li>
     </ul>
     <button class="nav-mobile-btn" id="nav-mobile-btn" aria-label="Open menu">
       <span></span><span></span><span></span>
@@ -49,8 +50,9 @@
     <a href="#projects" class="nav-mobile-link">Projects</a>
     <a href="#skills" class="nav-mobile-link">Skills</a>
     <a href="#experience" class="nav-mobile-link">Experience</a>
-    <a href="#leetcode" class="nav-mobile-link">LeetCode</a>
-    <a href="#personal" class="nav-mobile-link">Personal</a>
+    <a href="#dsa" class="nav-mobile-link">DSA</a>
+    <a href="#working-on" class="nav-mobile-link">Working On</a>
+    <a href="#personal" class="nav-mobile-link">Traits</a>
   </div>
 
   <main id="main-content">
@@ -177,32 +179,58 @@
     </section>
 
     <!-- ══════════════════════════════════════════
-         06 — LEETCODE
+         06 — DSA / CP
     ═══════════════════════════════════════════ -->
-    <section id="leetcode" class="section section-leetcode" aria-label="LeetCode">
+    <section id="dsa" class="section section-leetcode" aria-label="DSA and CP">
       <div class="three-viewport" data-scene="leetcode" id="viewport-leetcode" aria-hidden="true"></div>
       <div class="section-inner">
-        <div class="section-label reveal-up">06 — LeetCode</div>
+        <div class="section-label reveal-up">06 — DSA / CP</div>
         <h2 class="section-heading reveal-up delay-1">Proof of practice</h2>
-        <div class="leet-stats" id="leet-stats">
-          <!-- populated from leetcode.json -->
+        
+        <div class="dsa-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+          <div class="leetcode-container">
+            <h3 style="font-family: var(--font-mono); color: var(--clr-primary); margin-bottom: 1rem;">LeetCode</h3>
+            <div class="leet-stats" id="leet-stats">
+              <!-- populated from data -->
+            </div>
+            <div class="leet-categories" id="leet-categories">
+              <!-- populated from data -->
+            </div>
+            <a id="leet-profile-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost leet-link reveal-up">
+              View LeetCode profile →
+            </a>
+          </div>
+
+          <div class="codeforces-container">
+            <h3 style="font-family: var(--font-mono); color: #3182ce; margin-bottom: 1rem;">Codeforces</h3>
+            <div class="cf-stats" id="cf-stats" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem;">
+              <!-- populated from data in dom.js -->
+            </div>
+          </div>
         </div>
-        <div class="leet-categories" id="leet-categories">
-          <!-- populated from leetcode.json -->
-        </div>
-        <a id="leet-profile-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost leet-link reveal-up">
-          View LeetCode profile →
-        </a>
       </div>
     </section>
 
     <!-- ══════════════════════════════════════════
-         07 — PERSONAL
+         07 — WORKING ON
+    ═══════════════════════════════════════════ -->
+    <section id="working-on" class="section section-working-on" aria-label="What I'm Working On">
+      <div class="section-inner">
+        <div class="section-label reveal-up">07 — Currently</div>
+        <h2 class="section-heading reveal-up delay-1">What I'm working on</h2>
+        <div class="working-on-items" id="working-on-items" style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <!-- populated from data -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         08 — PERSONAL
     ═══════════════════════════════════════════ -->
     <section id="personal" class="section section-personal" aria-label="Personal">
       <div class="three-viewport" data-scene="personal" id="viewport-personal" aria-hidden="true"></div>
       <div class="section-inner">
-        <div class="section-label reveal-up">07 — Personal</div>
+        <div class="section-label reveal-up">08 — Traits</div>
         <h2 class="section-heading reveal-up delay-1">Beyond the code</h2>
         <div class="personal-items" id="personal-items">
           <!-- populated from personal.json -->

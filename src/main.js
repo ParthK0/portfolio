@@ -9,11 +9,15 @@ import './styles/animations.css';
 
 import { ThreeManager }  from './three/manager.js';
 import {
+  buildHero,
+  buildAbout,
   buildProjects,
   buildSkills,
   buildExperience,
-  buildLeetcode,
-  buildPersonal,
+  buildDSA,
+  buildWorkingOn,
+  buildTraits,
+  buildFooter,
   animateLeetBars,
 } from './dom.js';
 import {
@@ -36,20 +40,18 @@ async function boot() {
   registerViewports(manager);
 
   /* ── Fetch all JSON ── */
-  const [projects, skills, experience, leetcode, personal] = await Promise.all([
-    fetch('/data/projects.json').then(r => r.json()),
-    fetch('/data/skills.json').then(r => r.json()),
-    fetch('/data/experience.json').then(r => r.json()),
-    fetch('/data/leetcode.json').then(r => r.json()),
-    fetch('/data/personal.json').then(r => r.json()),
-  ]);
+  const portfolioData = await fetch('/data/portfolio.json').then(r => r.json());
 
   /* ── Build DOM from data ── */
-  buildProjects(projects);
-  buildSkills(skills);
-  buildExperience(experience);
-  await buildLeetcode(leetcode);
-  buildPersonal(personal);
+  buildHero(portfolioData.hero);
+  buildAbout(portfolioData.about, portfolioData.education);
+  buildProjects(portfolioData.projects);
+  buildSkills(portfolioData.skills);
+  buildExperience(portfolioData.experience);
+  await buildDSA(portfolioData.dsa);
+  buildWorkingOn(portfolioData.workingOn);
+  buildTraits(portfolioData.traits);
+  buildFooter(portfolioData.footer);
   animateLeetBars();
 
   /* ── Scroll reveals ── */
@@ -59,7 +61,7 @@ async function boot() {
   initScrollHint();
 
   /* ── Typed title animation ── */
-  initTypingAnimation(['Full-Stack Engineer.', '3D Web Developer.', 'Worldbuilder.', 'CS Student.']);
+  initTypingAnimation(portfolioData.hero.titles || ['Developer.']);
 
   /* ── Mobile nav ── */
   initMobileNav();
