@@ -260,6 +260,44 @@
   color: var(--clr-teal);
 }
 
+/* ── Depth HUD Bar (Valorant) ── */
+.depth-hud {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 32px;
+  font-family: var(--valo-hud-font);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--depth-text-color);
+  border-top: 1px solid rgba(29, 158, 117, 0.12);
+  background: linear-gradient(
+    to right,
+    rgba(10, 14, 26, 0.5),
+    transparent 40%,
+    transparent 60%,
+    rgba(10, 14, 26, 0.5)
+  );
+  z-index: var(--z-section);
+  pointer-events: none;
+  text-transform: uppercase;
+}
+.depth-hud-left,
+.depth-hud-center,
+.depth-hud-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.depth-hud-sep {
+  color: rgba(29, 158, 117, 0.2);
+  margin: 0 4px;
+}
+
 /* ── ABOUT ── */
 .section-about { min-height: 100svh; }
 
@@ -282,9 +320,64 @@
   height: 220px;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 2px solid var(--clr-surface-3);
+  border: 2px solid rgba(29, 158, 117, 0.35);
   position: relative;
   background: var(--clr-surface-2);
+  /* Valorant agent frame glow */
+  box-shadow:
+    0 0 0 1px rgba(29, 158, 117, 0.1),
+    0 0 30px rgba(29, 158, 117, 0.12),
+    inset 0 0 20px rgba(29, 158, 117, 0.05);
+  transition: box-shadow 0.4s var(--ease-out), border-color 0.4s;
+}
+.about-photo-frame:hover {
+  border-color: rgba(29, 158, 117, 0.7);
+  box-shadow:
+    0 0 0 1px rgba(29, 158, 117, 0.2),
+    0 0 50px rgba(29, 158, 117, 0.25),
+    inset 0 0 30px rgba(29, 158, 117, 0.08);
+}
+/* Valorant corner brackets on photo frame */
+.about-photo-frame::before,
+.about-photo-frame::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: rgba(29, 158, 117, 0.8);
+  border-style: solid;
+  z-index: 2;
+  pointer-events: none;
+  transition: width 0.3s, height 0.3s;
+}
+.about-photo-frame::before {
+  top: 6px; left: 6px;
+  border-width: 2px 0 0 2px;
+}
+.about-photo-frame::after {
+  bottom: 6px; right: 6px;
+  border-width: 0 2px 2px 0;
+}
+/* Agent ID label above photo */
+.about-agent-id {
+  font-family: var(--valo-hud-font);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--clr-teal);
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: var(--sp-3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.about-agent-id::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+  background: var(--clr-teal);
+  opacity: 0.5;
 }
 
 .about-photo-placeholder {

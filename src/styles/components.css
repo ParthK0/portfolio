@@ -74,11 +74,14 @@
   transition: border-color var(--duration-med) var(--ease-out),
               transform var(--duration-med) var(--ease-out),
               box-shadow var(--duration-med) var(--ease-out);
+  /* Inherits valo-card corner bracket system */
 }
-.project-card:hover {
-  border-color: rgba(29, 158, 117, 0.35);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 60px rgba(29, 158, 117, 0.1);
+.project-card.valo-card:hover {
+  border-color: rgba(29, 158, 117, 0.45);
+  transform: translateY(-5px);
+  box-shadow:
+    0 24px 64px rgba(29, 158, 117, 0.12),
+    0 0 0 1px rgba(29, 158, 117, 0.15);
 }
 
 .project-card-coral {
@@ -122,14 +125,20 @@
 
 .tech-pill {
   padding: 3px 10px;
-  border-radius: var(--radius-full);
-  font-size: 0.72rem;
+  border-radius: 2px;            /* Hard-cut — no pill shape in Valorant */
+  font-size: 0.68rem;
   font-weight: 500;
-  font-family: var(--font-mono);
-  background: rgba(29, 158, 117, 0.08);
+  font-family: var(--valo-hud-font);
+  background: rgba(29, 158, 117, 0.06);
   color: var(--clr-teal);
   border: 1px solid rgba(29, 158, 117, 0.2);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.2s, border-color 0.2s;
+}
+.tech-pill:hover {
+  background: rgba(29, 158, 117, 0.14);
+  border-color: rgba(29, 158, 117, 0.5);
 }
 
 .project-card-links {
@@ -158,16 +167,29 @@
   top: var(--sp-4);
   right: var(--sp-4);
   padding: 3px 10px;
-  background: rgba(29, 158, 117, 0.15);
-  border: 1px solid rgba(29, 158, 117, 0.35);
-  color: var(--clr-teal);
-  font-size: 0.7rem;
-  font-weight: 600;
-  font-family: var(--font-mono);
-  letter-spacing: 0.1em;
+  /* Valorant hard-cut featured tag — no border-radius */
+  background: rgba(212, 83, 126, 0.15);
+  border: 1px solid rgba(212, 83, 126, 0.5);
+  border-left: 3px solid var(--valo-red);
+  color: var(--valo-red);
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-family: var(--valo-hud-font);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  border-radius: var(--radius-full);
-  z-index: 2;
+  border-radius: 0 2px 2px 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.project-featured-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--valo-red);
+  animation: tac-ping 1.5s ease-in-out infinite;
 }
 
 /* ── Skill Pill ── */
@@ -197,24 +219,28 @@
   line-height: 1;
 }
 
-/* ── Experience Timeline Entry ── */
+/* ── Experience Timeline Entry ──
+   Valorant Intelligence File Style
+─────────────────────────────── */
 .timeline-entry {
   display: flex;
   gap: var(--sp-5);
   padding-left: var(--sp-6);
   position: relative;
 }
+/* Teal dot on the line */
 .timeline-entry::before {
   content: '';
   position: absolute;
-  left: -4px;
-  top: 6px;
-  width: 9px;
-  height: 9px;
+  left: -5px;
+  top: 8px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   background: var(--clr-teal);
   border: 2px solid var(--clr-ocean);
-  box-shadow: 0 0 12px rgba(29, 158, 117, 0.5);
+  box-shadow: 0 0 16px rgba(29, 158, 117, 0.7), 0 0 32px rgba(29,158,117,0.2);
+  z-index: 2;
 }
 
 .timeline-entry-meta {
@@ -223,36 +249,40 @@
   padding-top: 2px;
 }
 .timeline-date {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-family: var(--valo-hud-font);
+  font-size: 0.7rem;
   color: var(--clr-teal);
   margin-bottom: var(--sp-1);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
 }
 .timeline-badge {
   display: inline-block;
   padding: 2px 8px;
-  border-radius: var(--radius-full);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  border-radius: 2px;   /* Hard corners — Valorant */
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  font-family: var(--font-mono);
+  font-family: var(--valo-hud-font);
 }
 .badge-leadership {
   background: rgba(212, 83, 126, 0.1);
   color: var(--clr-coral);
-  border: 1px solid rgba(212, 83, 126, 0.25);
+  border: 1px solid rgba(212, 83, 126, 0.3);
+  border-left: 3px solid var(--clr-coral);
 }
 .badge-internship {
   background: rgba(29, 158, 117, 0.1);
   color: var(--clr-teal);
-  border: 1px solid rgba(29, 158, 117, 0.25);
+  border: 1px solid rgba(29, 158, 117, 0.3);
+  border-left: 3px solid var(--clr-teal);
 }
 .badge-opensource {
   background: rgba(127, 119, 221, 0.1);
   color: var(--clr-purple);
-  border: 1px solid rgba(127, 119, 221, 0.25);
+  border: 1px solid rgba(127, 119, 221, 0.3);
+  border-left: 3px solid var(--clr-purple);
 }
 
 .timeline-entry-body {
@@ -260,11 +290,31 @@
   padding: var(--sp-4) var(--sp-5);
   background: var(--clr-surface-1);
   border: 1px solid var(--clr-surface-3);
-  border-radius: var(--radius-md);
-  transition: border-color var(--duration-med) var(--ease-out);
+  border-top: 2px solid rgba(29, 158, 117, 0.25); /* Valorant top accent */
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  transition: border-color var(--duration-med) var(--ease-out),
+              box-shadow var(--duration-med) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+/* Classified watermark */
+.timeline-entry-body::after {
+  content: 'FILE';
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  font-family: var(--valo-hud-font);
+  font-size: 3rem;
+  font-weight: 900;
+  color: rgba(29, 158, 117, 0.04);
+  letter-spacing: 0.2em;
+  pointer-events: none;
+  user-select: none;
 }
 .timeline-entry-body:hover {
-  border-color: rgba(29, 158, 117, 0.25);
+  border-color: rgba(29, 158, 117, 0.35);
+  border-top-color: var(--clr-teal);
+  box-shadow: 4px 0 0 rgba(29, 158, 117, 0.2);
 }
 
 .timeline-org {
@@ -272,39 +322,74 @@
   color: var(--clr-text-heading);
   font-size: 1rem;
   margin-bottom: 2px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: var(--valo-hud-font);
 }
 .timeline-role {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--clr-teal);
   margin-bottom: var(--sp-3);
   font-weight: 500;
+  font-family: var(--valo-hud-font);
+  letter-spacing: 0.06em;
+  opacity: 0.8;
 }
 .timeline-bullets {
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
-  padding-left: var(--sp-4);
+  padding-left: 0;
+  list-style: none;
 }
 .timeline-bullet {
   font-size: 0.875rem;
   color: var(--clr-text-body);
-  list-style: disc;
   line-height: 1.6;
+  display: flex;
+  gap: var(--sp-2);
+  align-items: flex-start;
 }
-.timeline-bullet::marker { color: var(--clr-teal); }
+/* Replace disc marker with teal ▶ */
+.timeline-bullet::before {
+  content: '\25B6';
+  color: var(--clr-teal);
+  font-size: 0.5rem;
+  margin-top: 6px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
 
-/* ── LeetCode Stats ── */
+/* ── LeetCode Stats — Tactical HUD Tiles ── */
 .leet-stat-tile {
   background: var(--clr-surface-1);
   border: 1px solid var(--clr-surface-3);
-  border-radius: var(--radius-md);
+  border-top: 2px solid rgba(127, 119, 221, 0.4);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
   padding: var(--sp-5);
   text-align: center;
-  transition: border-color var(--duration-med), transform var(--duration-med);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--duration-med), transform var(--duration-med),
+              box-shadow var(--duration-med);
+}
+/* HUD watermark */
+.leet-stat-tile::after {
+  content: attr(data-label-short);
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-family: var(--valo-hud-font);
+  font-size: 2rem;
+  color: rgba(127, 119, 221, 0.05);
+  letter-spacing: 0.2em;
+  pointer-events: none;
 }
 .leet-stat-tile:hover {
-  border-color: rgba(127, 119, 221, 0.35);
+  border-top-color: rgba(127, 119, 221, 0.8);
   transform: translateY(-3px);
+  box-shadow: 0 0 0 1px rgba(127, 119, 221, 0.15),
+              0 16px 40px rgba(127, 119, 221, 0.1);
 }
 .leet-stat-value {
   font-size: 2.5rem;
@@ -313,14 +398,15 @@
   letter-spacing: -0.03em;
   line-height: 1;
   margin-bottom: var(--sp-1);
+  font-family: var(--valo-hud-font);
 }
-.leet-stat-value.easy  { color: #1D9E75; }
+.leet-stat-value.easy   { color: #1D9E75; }
 .leet-stat-value.medium { color: #D85A30; }
-.leet-stat-value.hard  { color: #D4537E; }
+.leet-stat-value.hard   { color: #D4537E; }
 .leet-stat-label {
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  font-family: var(--valo-hud-font);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--clr-text-muted);
 }

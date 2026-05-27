@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════════════════════
    ANIMATIONS.CSS — Keyframes, Reveal Classes, GSAP Targets
+   + Valorant × Aquaman Theme Animations
 ═══════════════════════════════════════════════════════════ */
 
 /* ── Keyframes ── */
@@ -96,3 +97,163 @@
 .section-leetcode  .section-label { color: var(--clr-purple); }
 .section-personal  .section-label { color: var(--clr-coral); }
 .section-experience .section-label { color: var(--clr-teal); }
+
+/* ═══════════════════════════════════════════════════════════
+   VALORANT × AQUAMAN ANIMATION SYSTEM
+═══════════════════════════════════════════════════════════ */
+
+/* ── 1. Glitch — fires once on hero name load ── */
+@keyframes glitch {
+  0%   { clip-path: inset(0 0 98% 0); transform: translateX(-4px); color: var(--clr-teal); }
+  15%  { clip-path: inset(20% 0 65% 0); transform: translateX(4px); }
+  30%  { clip-path: inset(50% 0 30% 0); transform: translateX(-3px); color: var(--clr-coral); }
+  50%  { clip-path: inset(75% 0 5% 0); transform: translateX(3px); }
+  75%  { clip-path: inset(30% 0 55% 0); transform: translateX(-1px); }
+  100% { clip-path: inset(0 0 0 0); transform: translateX(0); color: inherit; }
+}
+.glitch-once {
+  animation: glitch 0.55s steps(3) 0.6s both;
+}
+
+/* ── 2. Scanline card-reveal — wipes over project cards on hover ── */
+@keyframes scan-wipe {
+  0%   { clip-path: inset(0 0 100% 0); opacity: 0.7; }
+  100% { clip-path: inset(0 0 0% 0);   opacity: 0; }
+}
+.scan-wipe-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(29, 158, 117, 0.12),
+    transparent 40%
+  );
+  pointer-events: none;
+  clip-path: inset(0 0 100% 0);
+  z-index: 5;
+}
+.valo-card:hover .scan-wipe-overlay {
+  animation: scan-wipe 0.45s var(--ease-out) forwards;
+}
+
+/* ── 3. Radar Ping — expands from skill pills on hover ── */
+@keyframes radar-ping {
+  0%   { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.0); opacity: 0; }
+}
+.skill-pill {
+  position: relative;
+}
+.skill-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--clr-teal);
+  opacity: 0;
+  pointer-events: none;
+}
+.skill-pill:hover::after {
+  animation: radar-ping 1s ease-out 1;
+}
+
+/* ── 4. Energy Beam — timeline vertical line pulse ── */
+@keyframes energy-beam {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 200px; }
+}
+.timeline::before {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--clr-teal) 30%,
+    rgba(29,158,117,0.4) 70%,
+    transparent 100%
+  ) !important;
+  background-size: 1px 200px !important;
+  animation: energy-beam 2.5s linear infinite;
+}
+
+/* ── 5. Trident float — subtle up/down drift for 3D object ── */
+@keyframes trident-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+/* ── 6. Depth HUD bar entry ── */
+@keyframes hud-slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.depth-hud {
+  animation: hud-slide-up 0.8s var(--ease-out) 1.5s both;
+}
+
+/* ── 7. Corner bracket expand on hover ── */
+.valo-card {
+  position: relative;
+}
+.valo-card::before,
+.valo-card::after {
+  content: '';
+  position: absolute;
+  width:  var(--valo-bracket-size);
+  height: var(--valo-bracket-size);
+  border-color: var(--clr-teal);
+  border-style: solid;
+  transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out),
+              border-color 0.2s;
+  z-index: 3;
+  pointer-events: none;
+}
+.valo-card::before {
+  top: 0; left: 0;
+  border-width: 2px 0 0 2px;
+  border-radius: 2px 0 0 0;
+}
+.valo-card::after {
+  bottom: 0; right: 0;
+  border-width: 0 2px 2px 0;
+  border-radius: 0 0 2px 0;
+}
+.valo-card:hover::before,
+.valo-card:hover::after {
+  width: 24px;
+  height: 24px;
+  border-color: rgba(29, 158, 117, 0.9);
+}
+
+/* ── 8. Tactical data-ping badge animation ── */
+@keyframes tac-ping {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+.tac-badge {
+  font-family: var(--valo-hud-font);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--clr-teal);
+  border: 1px solid rgba(29, 158, 117, 0.3);
+  padding: 2px 8px;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.tac-badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--clr-teal);
+  animation: tac-ping 1.5s ease-in-out infinite;
+}
+
+/* ── 9. Section heading tactical reveal ── */
+@keyframes text-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+.section-heading.is-visible {
+  animation: text-reveal 0.8s var(--ease-out) 0.2s both;
+}
