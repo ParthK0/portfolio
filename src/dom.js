@@ -14,12 +14,17 @@ export function buildProjects(projects) {
 
   projects.forEach((p) => {
     const card = document.createElement('article');
-    card.className = `project-card reveal-up${p.featured ? ' featured' : ''}`;
+    card.className = `project-card valo-card reveal-up${p.featured ? ' featured' : ''}`;
     card.id = `project-card-${p.id}`;
 
     const canvas = document.createElement('canvas');
     canvas.className = 'project-card-coral';
     canvas.id = `coral-canvas-${p.id}`;
+
+    // Scan-wipe overlay (Valorant hover reveal)
+    const scanOverlay = document.createElement('div');
+    scanOverlay.className = 'scan-wipe-overlay';
+    scanOverlay.setAttribute('aria-hidden', 'true');
 
     const stackHtml = p.stack
       .map(s => `<span class="tech-pill">${s}</span>`)
@@ -40,8 +45,9 @@ export function buildProjects(projects) {
       </div>
     `;
 
-    // Insert canvas before body
+    // Insert canvas then scan overlay before body
     card.insertBefore(canvas, card.firstChild);
+    card.insertBefore(scanOverlay, card.children[1] ?? null);
     grid.appendChild(card);
 
     // Lazy-start coral when card enters viewport

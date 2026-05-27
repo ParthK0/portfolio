@@ -63,8 +63,8 @@
     <section id="hero" class="section section-hero" aria-label="Hero">
       <div class="three-viewport" data-scene="hero" id="viewport-hero" aria-hidden="true"></div>
       <div class="hero-content">
-        <div class="hero-eyebrow reveal-up">Scroll into the deep</div>
-        <h1 class="hero-name reveal-up delay-1">
+        <div class="hero-eyebrow valo-label reveal-up">[ ATLANTIS TEASER ] · DEPTH: 0m · INITIALIZING</div>
+        <h1 class="hero-name glitch-once reveal-up delay-1">
           <span class="hero-name-first">Parth</span>
           <span class="hero-name-last">K</span>
         </h1>
@@ -86,6 +86,22 @@
         <div class="scroll-hint-line"></div>
         <span>scroll</span>
       </div>
+      <!-- Valorant Depth HUD Bar -->
+      <div class="depth-hud" aria-hidden="true">
+        <div class="depth-hud-left">
+          <span>DEPTH: 0m</span>
+          <span class="depth-hud-sep">|</span>
+          <span>SURFACE</span>
+        </div>
+        <div class="depth-hud-center">
+          <span class="tac-badge"><span class="tac-badge-dot"></span>ATLANTIS TEASER · LIVE</span>
+        </div>
+        <div class="depth-hud-right">
+          <span>AGENT: PK-01</span>
+          <span class="depth-hud-sep">|</span>
+          <span>SCROLL TO DESCEND ↓</span>
+        </div>
+      </div>
     </section>
 
     <!-- ══════════════════════════════════════════
@@ -97,6 +113,7 @@
         <div class="section-label reveal-left">02 — About</div>
         <div class="about-grid">
           <div class="about-photo-wrap reveal-left delay-1">
+            <div class="about-agent-id" aria-hidden="true">AGENT ID · PK-01</div>
             <div class="about-photo-frame" id="about-photo-frame">
               <div class="about-photo-placeholder" aria-label="Profile photo">PK</div>
             </div>
@@ -159,11 +176,12 @@
          03 — PROJECTS
     ═══════════════════════════════════════════ -->
     <section id="projects" class="section section-projects" aria-label="Projects">
+      <div class="depth-meter" aria-hidden="true"><div class="depth-meter-line"></div><div class="depth-meter-label">300m · WRECKAGE</div></div>
       <div class="section-inner">
         <div class="section-label reveal-up">03 — Projects</div>
         <h2 class="section-heading reveal-up delay-1">Things I've built</h2>
         <div class="projects-grid" id="projects-grid">
-          <!-- populated from projects.json -->
+          <!-- populated by dom.js — valo-card class added dynamically -->
         </div>
       </div>
     </section>
@@ -173,6 +191,7 @@
     ═══════════════════════════════════════════ -->
     <section id="skills" class="section section-skills" aria-label="Skills">
       <div class="three-viewport" data-scene="skills" id="viewport-skills" aria-hidden="true"></div>
+      <div class="depth-meter" aria-hidden="true"><div class="depth-meter-line"></div><div class="depth-meter-label">500m · THE FORGE</div></div>
       <div class="section-inner">
         <div class="section-label reveal-up">04 — Skills</div>
         <h2 class="section-heading reveal-up delay-1">What I work with</h2>
@@ -187,11 +206,12 @@
     ═══════════════════════════════════════════ -->
     <section id="experience" class="section section-experience" aria-label="Experience">
       <div class="three-viewport" data-scene="experience" id="viewport-experience" aria-hidden="true"></div>
+      <div class="depth-meter" aria-hidden="true"><div class="depth-meter-line"></div><div class="depth-meter-label">700m · ARCHIVE</div></div>
       <div class="section-inner">
         <div class="section-label reveal-up">05 — Experience</div>
-        <h2 class="section-heading reveal-up delay-1">Where I've been</h2>
+        <h2 class="section-heading reveal-up delay-1">Intelligence Files</h2>
         <div class="timeline" id="experience-timeline">
-          <!-- populated from experience.json -->
+          <!-- populated by dom.js -->
         </div>
       </div>
     </section>
@@ -264,6 +284,7 @@
   <footer id="footer" class="section-footer" aria-label="Footer">
     <div class="three-viewport" data-scene="footer" id="viewport-footer" aria-hidden="true"></div>
     <div class="footer-content">
+      <div class="valo-label reveal-up" style="margin-bottom: 12px;">[ DEPTH: ∞ ] · ATLANTIS: FOUND</div>
       <div class="footer-name reveal-up">Parth K</div>
       <p class="footer-tagline reveal-up delay-1">
         Currently looking for internship opportunities — let's talk.
@@ -281,6 +302,12 @@
       <div class="footer-copy reveal-up delay-4">
         © <span id="footer-year"></span> Parth K. Built as a teaser for Atlantis.
       </div>
+    </div>
+    <!-- Valorant bottom HUD bar -->
+    <div class="depth-hud" aria-hidden="true">
+      <div class="depth-hud-left"><span>END OF DESCENT</span></div>
+      <div class="depth-hud-center"><span class="tac-badge"><span class="tac-badge-dot"></span>ATLANTIS · ONLINE</span></div>
+      <div class="depth-hud-right"><span>AGENT: PK-01 · OFFLINE</span></div>
     </div>
   </footer>
 
