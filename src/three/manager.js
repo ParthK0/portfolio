@@ -62,22 +62,41 @@ export class ThreeManager {
    * Called once from main.js: `new ThreeManager(canvas)`
    * Sets up the renderer, starts the animation loop, and listens for resize.
    *
+   * PHASE 5 — Mobile Fallback
+   * If the device is:
+   *   - A narrow screen (< 768px, likely a phone), OR
+   *   - A slow CPU (hardwareConcurrency < 4, less than 4 cores)
+   * ...we skip ALL Three.js initialisation entirely.
+   * We add 'no-three' to <body> so CSS can show gradient fallbacks instead.
+   * This ensures the site looks great on every device, not just gaming laptops.
+   *
    * @param {HTMLCanvasElement} canvas — the <canvas id="gl-canvas"> from index.html
    */
   constructor(canvas) {
+    // ── Phase 5: Mobile / Low-Power Fallback ──────────────────────────────
+    // navigator.hardwareConcurrency = number of logical CPU cores available
+    // Low-end phones often have 2–4 cores and can't sustain 60fps WebGL
+    const isMobile  = window.innerWidth < 768;
+    const isLowPower = (navigator.hardwareConcurrency ?? 4) < 4;
+
+    if (isMobile || isLowPower) {
+      // Signal to CSS: hide the WebGL canvas, show gradient fallbacks
+      document.body.classList.add('no-three');
+      // Store a flag so registerScene() calls become no-ops
+      this._disabled = true;
+      // Hide the canvas element itself
+      canvas.style.display = 'none';
+      return; // Stop — don't create a renderer at all
+    }
+
     this.canvas   = canvas;
-
-    // this.scenes stores ALL registered scenes.
-    // Format: { 'hero': { scene, camera, update, el }, 'about': { ... }, ... }
     this.scenes   = {};
-
-    this.renderer = null; // Will be set by _initRenderer()
-    this.raf      = null; // requestAnimationFrame handle — lets us cancel the loop
+    this.renderer = null;
+    this.raf      = null;
+    this._disabled = false;
 
     this._initRenderer();
     this._startLoop();
-
-    // Listen for window resize to keep canvas and cameras in sync
     window.addEventListener('resize', () => this._onResize());
   }
 
@@ -115,39 +134,23 @@ export class ThreeManager {
   /**
    * registerScene(id, el)
    * Called from main.js/scroll.js after the DOM is built.
-   * Takes a scene name and its DOM element, creates the 3D scene, and stores it.
-   *
-   * @param {string}  id  — matches the data-scene attribute in HTML (e.g. "hero")
-   * @param {Element} el  — the .three-viewport DOM element
-   *
-   * HOW IT WORKS:
-   * 1. Looks up the factory function (e.g. createHeroScene) in SCENE_FACTORIES
-   * 2. Calls it — this returns { scene, camera, update }
-   * 3. Stores the result + the DOM element in this.scenes
+   * On mobile (_disabled=true), this is a safe no-op.
    */
   registerScene(id, el) {
+    if (this._disabled) return; // Mobile fallback — skip gracefully
     const factory = SCENE_FACTORIES[id];
-    if (!factory) {
-      // If there's no factory for this id, just skip it silently
-      return;
-    }
-
-    // factory(el) calls something like createHeroScene(el)
-    // It returns an object: { scene, camera, update, ...any extras like highlightCrystal }
+    if (!factory) return;
     const result = factory(el);
-
-    // Store everything together — spread operator (...) merges the result with { el }
     this.scenes[id] = { ...result, el };
   }
 
   /**
    * getScene(id)
-   * Returns the internals of a scene. Used by main.js to wire hover → 3D interactions.
-   * e.g. manager.getScene('skills').highlightCrystal(3)
-   *
-   * The ?? null means: return null if the scene doesn't exist (never crash)
+   * Returns scene internals for hover interactions.
+   * Returns null safely on mobile.
    */
   getScene(id) {
+    if (this._disabled) return null;
     return this.scenes[id] ?? null;
   }
 

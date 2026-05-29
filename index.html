@@ -8,6 +8,10 @@
   <meta property="og:title" content="Parth Khowal — Developer Portfolio" />
   <meta property="og:description" content="A teaser of the Atlantis 3D world. Scroll through the underwater city of code." />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="/preview.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Parth Khowal — Developer Portfolio" />
+  <meta name="twitter:image" content="/preview.png" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -81,8 +85,8 @@
         </p>
         <div class="hero-ctas reveal-up delay-4">
           <a href="#projects" class="btn btn-primary" id="cta-explore">Explore my work</a>
-          <a href="#" download class="btn btn-ghost" id="cta-resume">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          <a href="/resume.pdf" download class="btn btn-ghost" id="cta-resume" aria-label="Download resume PDF">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-right: 6px;" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
             Download Resume
           </a>
         </div>
@@ -121,7 +125,18 @@
           <div class="about-photo-wrap reveal-left delay-1">
             <div class="about-agent-id" aria-hidden="true">AGENT ID · PK-01</div>
             <div class="about-photo-frame" id="about-photo-frame">
-              <div class="about-photo-placeholder" aria-label="Profile photo">PK</div>
+              <!-- Phase 5: Real photo — add photo.jpg to public/ folder -->
+              <!-- Falls back gracefully to PK initials if photo.jpg doesn't exist -->
+              <img
+                id="about-photo"
+                src="/photo.jpg"
+                alt="Parth Khowal — AI & Data Science Developer"
+                width="220"
+                height="220"
+                style="width:100%;height:100%;object-fit:cover;display:block;"
+                onerror="this.style.display='none';document.getElementById('about-photo-fallback').style.display='flex';"
+              />
+              <div class="about-photo-placeholder" id="about-photo-fallback" aria-hidden="true" style="display:none;">PK</div>
               <div class="about-agent-loc">#GREATERNOIDAINDIA</div>
             </div>
             <div class="about-status-badge" id="about-status-badge">

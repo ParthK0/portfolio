@@ -1,11 +1,19 @@
 /**
- * main.js
+ * main.js  (Phase 5 — Polish + Performance)
  * Entry point. Boots Three.js, fetches JSON, builds DOM, wires interactions.
+ * Phase 5 adds: GSAP ScrollTrigger polish, glitch animation, mobile fallback.
  */
 import './styles/base.css';
 import './styles/layout.css';
 import './styles/components.css';
 import './styles/animations.css';
+
+// GSAP: A professional-grade animation library (installed in Phase 0)
+// gsap.to() / gsap.from() create tweens
+// ScrollTrigger is a GSAP plugin that links animations to scroll position
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger); // Must register before using ScrollTrigger
 
 import { ThreeManager }  from './three/manager.js';
 import {
@@ -80,6 +88,12 @@ async function boot() {
 
   /* ── Skills hover → crystal highlight ── */
   initSkillsInteraction(manager);
+
+  /* ── Phase 5: GSAP ScrollTrigger polish ── */
+  initGSAPScrollPolish();
+
+  /* ── Phase 5: Hero name glitch on load ── */
+  initGlitch();
 }
 
 /* ══════════════════════════════════════════
@@ -180,5 +194,94 @@ function initSkillsInteraction(manager) {
   });
 }
 
-/* ── Go ── */
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   PHASE 5 \u2014 GSAP SCROLL POLISH
+   Uses GSAP ScrollTrigger to animate section headings and depth meters.
+
+   KEY CONCEPT: ScrollTrigger
+   Unlike IntersectionObserver (which is all-or-nothing), ScrollTrigger
+   gives you fine control: you can pin elements, scrub animations to
+   the scroll position, set start/end points, and add stagger.
+
+   gsap.from() means: animate FROM these values TO the element's current state.
+   So gsap.from(el, { y: 40, opacity: 0 }) means:
+     "Start the element at y+40 and opacity 0, then animate to y:0, opacity:1"
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+function initGSAPScrollPolish() {
+  // Don't run on mobile \u2014 performance first
+  if (document.body.classList.contains('no-three')) return;
+
+  /* \u2500\u2500 Section headings: fade up on scroll \u2500\u2500 */
+  // gsap.utils.toArray() converts a CSS selector to a real JS array
+  gsap.utils.toArray('.section-heading').forEach((heading) => {
+    gsap.from(heading, {
+      y:       40,     // Start 40px below normal position
+      opacity: 0,      // Start fully transparent
+      duration: 0.8,   // Animate over 0.8 seconds
+      ease: 'power2.out', // Fast start, smooth deceleration
+      scrollTrigger: {
+        trigger: heading,       // Watch THIS element
+        start: 'top 85%',       // Fire when heading's top reaches 85% down the viewport
+        toggleActions: 'play none none none', // Only play forward, never reverse
+      },
+    });
+  });
+
+  /* \u2500\u2500 Depth meters: animate line height from 0 to 100% \u2500\u2500 */
+  gsap.utils.toArray('.depth-meter-line').forEach((line) => {
+    gsap.from(line, {
+      scaleY:   0,     // Start with 0 height (scaleY = vertical scale)
+      opacity:  0,
+      duration: 1.2,
+      ease:     'power3.out',
+      transformOrigin: 'top center', // Scale from the top, not the center
+      scrollTrigger: {
+        trigger: line,
+        start:   'top 90%',
+      },
+    });
+  });
+
+  /* \u2500\u2500 Section labels: slide in from left \u2500\u2500 */
+  gsap.utils.toArray('.section-label').forEach((label, i) => {
+    gsap.from(label, {
+      x:       -30,    // Start 30px to the left
+      opacity: 0,
+      duration: 0.6,
+      delay:    i * 0.05, // Small stagger so labels don't all animate at once
+      ease:    'power2.out',
+      scrollTrigger: {
+        trigger: label,
+        start:   'top 88%',
+      },
+    });
+  });
+}
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   PHASE 5 \u2014 HERO NAME GLITCH (one-time on load)
+   After 800ms, the hero name gets the 'glitch' CSS class which fires the
+   @keyframes glitch animation defined in animations.css.
+   After 600ms more (at 1400ms total), the class is removed.
+   This means the glitch plays ONCE on load and never repeats.
+
+   setTimeout(fn, ms) = "run this function after N milliseconds"
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+function initGlitch() {
+  const heroName = document.querySelector('.hero-name');
+  if (!heroName) return;
+
+  // Wait 800ms for the hero reveal animation to finish first
+  setTimeout(() => {
+    // Adding 'glitch' triggers the @keyframes glitch in animations.css
+    heroName.classList.add('glitch-once');
+
+    // Remove 600ms later so it doesn't repeat on future interactions
+    setTimeout(() => {
+      heroName.classList.remove('glitch-once');
+    }, 600);
+  }, 800);
+}
+
+/* \u2500\u2500 Go \u2500\u2500 */
 boot();

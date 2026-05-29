@@ -225,3 +225,43 @@ button {
   background: var(--clr-ocean);
   padding: 0 10px;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   PHASE 5 — MOBILE / NO-THREE FALLBACK
+   When ThreeManager detects a mobile/low-power device, it adds
+   'no-three' to <body>. These rules hide the WebGL canvas and
+   replace each three-viewport with a themed gradient so the
+   site still looks polished without any 3D graphics.
+═══════════════════════════════════════════════════════════ */
+.no-three #gl-canvas {
+  display: none; /* Canvas is already hidden by JS, belt-and-suspenders */
+}
+
+/* Each section's three-viewport gets a gradient in its accent color */
+.no-three .three-viewport {
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(29, 158, 117, 0.08) 0%,
+    transparent 70%
+  );
+}
+
+/* Section-specific gradients using accent colors */
+.no-three .section-skills .three-viewport {
+  background: radial-gradient(ellipse at 50% 50%, rgba(216, 90, 48, 0.08) 0%, transparent 70%);
+}
+.no-three .section-leetcode .three-viewport {
+  background: radial-gradient(ellipse at 50% 50%, rgba(127, 119, 221, 0.08) 0%, transparent 70%);
+}
+.no-three .section-personal .three-viewport {
+  background: radial-gradient(ellipse at 50% 50%, rgba(212, 83, 126, 0.08) 0%, transparent 70%);
+}
+.no-three .section-footer .three-viewport {
+  background: linear-gradient(to bottom, var(--clr-ocean), #050D1A);
+}
+
+/* Hide project card coral canvases on mobile (they use their own renderers) */
+.no-three .project-card-coral,
+.no-three .personal-item-canvas {
+  display: none;
+}
