@@ -77,11 +77,15 @@
   /* Inherits valo-card corner bracket system */
 }
 .project-card.valo-card:hover {
-  border-color: rgba(29, 158, 117, 0.45);
+  border-color: rgba(29, 158, 117, 0.4);
   transform: translateY(-5px);
   box-shadow:
     0 24px 64px rgba(29, 158, 117, 0.12),
     0 0 0 1px rgba(29, 158, 117, 0.15);
+}
+.project-card.featured {
+  border-color: var(--clr-teal);
+  box-shadow: 0 0 8px var(--clr-teal), 0 0 24px rgba(29,158,117,0.3);
 }
 
 .project-card-coral {
@@ -134,11 +138,25 @@
   border: 1px solid rgba(29, 158, 117, 0.2);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.tech-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--clr-teal);
+  opacity: 0;
+  pointer-events: none;
+}
+.tech-pill:hover::after {
+  animation: radar-ping 1s ease-out 1;
 }
 .tech-pill:hover {
-  background: rgba(29, 158, 117, 0.14);
-  border-color: rgba(29, 158, 117, 0.5);
+  background: rgba(29, 158, 117, 0.1);
+  border-color: var(--clr-teal);
+  box-shadow: 0 0 8px var(--clr-teal), 0 0 24px rgba(29,158,117,0.3);
 }
 
 .project-card-links {
@@ -182,6 +200,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  box-shadow: 0 0 8px var(--clr-teal), 0 0 24px rgba(29,158,117,0.3);
 }
 .project-featured-badge::before {
   content: '';
@@ -206,13 +225,15 @@
   color: var(--clr-text-body);
   cursor: pointer;
   transition: all var(--duration-fast);
+  position: relative;
 }
 .skill-pill:hover,
 .skill-pill.highlighted {
-  background: rgba(216, 90, 48, 0.1);
-  border-color: rgba(216, 90, 48, 0.35);
-  color: var(--clr-amber);
+  background: rgba(29, 158, 117, 0.1);
+  border-color: var(--clr-teal);
+  color: var(--clr-teal);
   transform: translateY(-2px);
+  box-shadow: 0 0 8px var(--clr-teal), 0 0 24px rgba(29,158,117,0.3);
 }
 .skill-pill-icon {
   font-size: 1rem;
@@ -304,12 +325,13 @@
   bottom: 12px;
   right: 16px;
   font-family: var(--valo-hud-font);
-  font-size: 3rem;
+  font-size: 48px;
   font-weight: 900;
   color: rgba(29, 158, 117, 0.04);
   letter-spacing: 0.2em;
   pointer-events: none;
   user-select: none;
+  transform: rotate(-15deg);
 }
 .timeline-entry-body:hover {
   border-color: rgba(29, 158, 117, 0.35);

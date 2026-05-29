@@ -117,23 +117,20 @@
 
 /* ── 2. Scanline card-reveal — wipes over project cards on hover ── */
 @keyframes scan-wipe {
-  0%   { clip-path: inset(0 0 100% 0); opacity: 0.7; }
-  100% { clip-path: inset(0 0 0% 0);   opacity: 0; }
+  0%   { transform: translateY(-100%); opacity: 0.06; }
+  100% { transform: translateY(0%); opacity: 0.06; }
 }
 .scan-wipe-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(29, 158, 117, 0.12),
-    transparent 40%
-  );
+  background: linear-gradient(to bottom, var(--clr-teal), transparent);
   pointer-events: none;
-  clip-path: inset(0 0 100% 0);
   z-index: 5;
+  opacity: 0;
+  transform: translateY(-100%);
 }
 .valo-card:hover .scan-wipe-overlay {
-  animation: scan-wipe 0.45s var(--ease-out) forwards;
+  animation: scan-wipe 400ms var(--ease-out) forwards;
 }
 
 /* ── 3. Radar Ping — expands from skill pills on hover ── */
@@ -201,7 +198,7 @@
   height: var(--valo-bracket-size);
   border-color: var(--clr-teal);
   border-style: solid;
-  transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out),
+  transition: width 200ms var(--ease-out), height 200ms var(--ease-out),
               border-color 0.2s;
   z-index: 3;
   pointer-events: none;

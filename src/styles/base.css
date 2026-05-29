@@ -15,6 +15,7 @@
   --clr-purple:  #7F77DD;
   --clr-amber:   #D85A30;
   --clr-coral:   #D4537E;
+  --clr-white:   #FFFFFF;
 
   /* Surface tiers */
   --clr-surface-1: #0F1525;
@@ -37,10 +38,10 @@
   --font-mono: 'JetBrains Mono', monospace;
 
   /* Sizing */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-xl: 32px;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
   --radius-full: 9999px;
 
   /* Spacing scale */
@@ -161,22 +162,20 @@ button {
 /* ══════════════════════════════════════════
    GLOBAL SCANLINE OVERLAY — Valorant feel
    A very subtle repeating scan line over
-   every section. Pointer-events: none.
+   everything. Pointer-events: none.
 ══════════════════════════════════════════ */
-.section::before {
-  content: '';
-  position: absolute;
+#scanline-overlay {
+  position: fixed;
   inset: 0;
   pointer-events: none;
   background: repeating-linear-gradient(
     to bottom,
     transparent            0px,
-    transparent            3px,
-    var(--valo-scan-color) 3px,
-    var(--valo-scan-color) 4px
+    transparent            2px,
+    rgba(0,0,0,0.15)       2px,
+    rgba(0,0,0,0.15)       4px
   );
-  z-index: 2;
-  mix-blend-mode: screen;
+  z-index: 9999;
 }
 
 /* ── Valo HUD utility ── */
@@ -192,13 +191,13 @@ button {
 /* ── Depth indicator (left edge of each section) ── */
 .depth-meter {
   position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: 0;
+  top: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
   z-index: var(--z-section);
   pointer-events: none;
   opacity: 0;
@@ -206,16 +205,23 @@ button {
 }
 .section.is-visible .depth-meter { opacity: 1; }
 .depth-meter-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
   width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, transparent, var(--depth-line-color));
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--depth-line-color) 10%, var(--depth-line-color) 90%, transparent);
+  transform: translateX(-50%);
+  z-index: 1;
 }
 .depth-meter-label {
-  font-family: var(--valo-hud-font);
+  font-family: var(--font-mono);
   font-size: 0.6rem;
-  color: var(--depth-text-color);
+  color: var(--clr-teal);
   letter-spacing: 0.12em;
-  writing-mode: vertical-lr;
-  text-orientation: mixed;
-  transform: rotate(180deg);
+  transform: rotate(90deg);
+  white-space: nowrap;
+  z-index: 2;
+  background: var(--clr-ocean);
+  padding: 0 10px;
 }
