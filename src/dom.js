@@ -6,6 +6,12 @@ import { createProjectCoralScene } from './three/scenes/projects.js';
 import { createPersonalItemScene }  from './three/scenes/personal.js';
 
 /* ── Projects ── */
+/**
+ * buildProjects
+ * This function takes your projects data array and generates the HTML for the Projects grid.
+ * It creates a `.valo-card` for each project, populates it with tech pills, and explicitly 
+ * sets `data-coral` to match the Phase 1 specification for 3D interactions.
+ */
 export function buildProjects(projects) {
   const grid = document.getElementById('projects-grid');
   if (!grid) return;
@@ -20,6 +26,9 @@ export function buildProjects(projects) {
     const canvas = document.createElement('canvas');
     canvas.className = 'project-card-coral';
     canvas.id = `coral-canvas-${p.id}`;
+    
+    // Add Phase 1 specific data-coral attributes (0 for featured, 1 or 2 for regular)
+    canvas.dataset.coral = p.featured ? '0' : ((index % 2 === 0) ? '1' : '2');
 
     // Scan-wipe overlay (Valorant hover reveal)
     const scanOverlay = document.createElement('div');
@@ -67,6 +76,14 @@ export function buildProjects(projects) {
 }
 
 /* ── Skills ── */
+/**
+ * buildSkills (Phase 2)
+ * Generates the HTML for the Skills section.
+ * - Loops through 7 skill categories and creates a hard-edged `.skill-pill` for each.
+ * - Assigns `data-crystal` (Phase 2 spec) AND `data-index` to each pill.
+ * - On mouseenter, dispatches a custom 'crystalHighlight' event so the Three.js
+ *   scene can listen for it independently from main.js.
+ */
 export function buildSkills(skills) {
   const container = document.getElementById('skills-groups');
   if (!container) return;
@@ -87,8 +104,26 @@ export function buildSkills(skills) {
       pill.className = `skill-pill`;
       pill.id        = `skill-pill-${key}-${skillIdx}`;
       pill.innerHTML = `<span class="skill-pill-icon">${skill.icon}</span>${skill.name}`;
+      
+      // data-index used by main.js initSkillsInteraction()
       pill.dataset.index = skillIdx;
+      // data-crystal used by Phase 2 spec — same value, explicit attribute name
+      pill.dataset.crystal = skillIdx;
       pill.dataset.group = key;
+
+      // Phase 2: dispatch a custom event on mouseenter
+      // Any listener anywhere on the page can react to 'crystalHighlight'
+      pill.addEventListener('mouseenter', () => {
+        pill.dispatchEvent(new CustomEvent('crystalHighlight', {
+          bubbles: true,       // The event bubbles up through the DOM
+          detail: { index: skillIdx, group: key } // Payload: which crystal to highlight
+        }));
+      });
+
+      pill.addEventListener('mouseleave', () => {
+        pill.dispatchEvent(new CustomEvent('crystalReset', { bubbles: true }));
+      });
+
       pillsWrap.appendChild(pill);
       skillIdx++;
     });
@@ -96,6 +131,12 @@ export function buildSkills(skills) {
 }
 
 /* ── Hero ── */
+/**
+ * buildHero
+ * Injects your name, tagline, and social links into the Hero section.
+ * It also exports your titles array to the `window` object so the typing animation 
+ * in `main.js` can read it.
+ */
 export function buildHero(hero) {
   const nameFirst = document.querySelector('.hero-name-first');
   const nameLast  = document.querySelector('.hero-name-last');
@@ -136,6 +177,11 @@ export function buildHero(hero) {
 }
 
 /* ── About ── */
+/**
+ * buildAbout
+ * Maps your bio paragraphs, education data (like GPA and coursework), and 
+ * contact information directly into the About section grid.
+ */
 export function buildAbout(about, education, hero) {
   const bio1 = document.getElementById('about-bio');
   const bio2 = document.getElementById('about-bio-2');
@@ -171,6 +217,11 @@ export function buildAbout(about, education, hero) {
 }
 
 /* ── Experience ── */
+/**
+ * buildExperience
+ * Builds the timeline. For every role you've held, it creates a `.timeline-entry` card.
+ * The CSS classes apply the "Intel File" watermark and tactical styling automatically.
+ */
 export function buildExperience(experience) {
   const timeline = document.getElementById('experience-timeline');
   if (!timeline) return;
@@ -201,6 +252,13 @@ export function buildExperience(experience) {
 }
 
 /* ── DSA / CP (LeetCode + Codeforces) ── */
+/**
+ * buildDSA
+ * This is an advanced function! It takes your LeetCode username and dynamically fetches
+ * your live solved counts and daily streak from a public API. It then generates the
+ * tactical stat tiles (`.leet-stat-tile`) and dynamically builds a heatmap graph 
+ * representing your last 140 days of submission activity.
+ */
 export async function buildDSA(dsaData) {
   const statsEl = document.getElementById('leet-stats');
   const catsEl  = document.getElementById('leet-categories');
@@ -363,6 +421,10 @@ function renderSubmissionHeatmap(container, calendarStr) {
 }
 
 /* ── Working On ── */
+/**
+ * buildWorkingOn
+ * Creates simple readout cards for your current activities.
+ */
 export function buildWorkingOn(items) {
   const container = document.getElementById('working-on-items');
   if (!container || !items) return;
@@ -380,6 +442,12 @@ export function buildWorkingOn(items) {
 }
 
 /* ── Traits ── */
+/**
+ * buildTraits
+ * Builds the 3-column personal traits grid. Assigns a canvas to each card with a
+ * `data-hobby` attribute for specific 3D renderings (Phase 1 spec). 
+ * Also wires up a simple click-to-toggle popup for the detailed text.
+ */
 export function buildTraits(items) {
   const container = document.getElementById('personal-items');
   if (!container) return;
@@ -392,6 +460,7 @@ export function buildTraits(items) {
     const canvas = document.createElement('canvas');
     canvas.className = 'personal-item-canvas';
     canvas.id        = `personal-canvas-${item.id}`;
+    canvas.dataset.hobby = index; // Match Phase 1 specification
 
     card.innerHTML = `
       <div class="personal-item-label">${item.label}</div>
@@ -420,6 +489,10 @@ export function buildTraits(items) {
 }
 
 /* ── Footer ── */
+/**
+ * buildFooter
+ * Populates the dynamic year and copyright text at the very bottom of the page.
+ */
 export function buildFooter(footer) {
   const yearEl = document.getElementById('footer-year');
   const creatorEl = document.querySelector('.footer-copy');
@@ -436,6 +509,12 @@ export function buildFooter(footer) {
 }
 
 /* ── Animate LeetCode bars on scroll ── */
+/**
+ * animateLeetBars
+ * Uses an IntersectionObserver to wait until the DSA section is scrolled into view.
+ * Once visible, it triggers the CSS width transition for the category bars so they
+ * animate smoothly instead of starting fully expanded.
+ */
 export function animateLeetBars() {
   const bars = document.querySelectorAll('.leet-cat-bar');
   const obs  = new IntersectionObserver((entries) => {
